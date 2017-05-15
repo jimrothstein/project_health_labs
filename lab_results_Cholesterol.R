@@ -5,7 +5,7 @@
 # https://docs.google.com/spreadsheets/d/16PRB17uBRtferrNyVSPKHCyelTNW4I6m2bMaTcsgo7s/edit?usp=sharing
 
 #######################
-#  Varibles to plot
+#  Variables to plot
 #######################
 # Tot_Cholesterol
 # HDL
@@ -27,28 +27,21 @@ library(lubridate)  # better for dates,
 ##################
 #   Read Labs
 ##################
-setClass('mmddyyyy')    # create a class
-
-# setAs(from, to, def)
-# take from=Date field and transform it to  "mmddyyyy" class , which is POSIXct
-# and in format we want; using POSIXct directly gives error
-
-setAs(from = 'character', to = 'mmddyyyy',
-      function(from)
-          as.POSIXct(from, format = "%d%b%Y"))
-#
-d <-
-    read.csv(
-        "~/Downloads/R_projects/project_health_labs/data/2016_Health Time Series_Sheet.csv",
-        header = TRUE,
-        colClasses = c(Date = 'mmddyyyy'),  # convert Date to POSIXct
-        na.strings = c("NA", "N/A"),  # these entries remain numbers
-        # as.is=TRUE                  # not needed
-        stringsAsFactors = FALSE      # do not convert to factors
-    )    
-
-d
-labs <- as_tibble(d)
+experiment <- function(){
+            d<-read.csv(
+            "~/Downloads/R_projects/project_health_labs/data/2016_Health Time Series_Sheet.csv",
+            header = TRUE,
+            na.strings = c("NA", "N/A"),  # these entries remain numbers
+            # as.is=TRUE                  # not needed
+            stringsAsFactors = FALSE      # do not convert to factors
+            )
+            
+            # char to Date
+            d$Date<-dmy(d$Date)
+            labs<-as_tibble(d)
+            return(labs)
+}
+labs<- experiment()
 labs
 
 ## Select fields ------------
@@ -97,14 +90,25 @@ labs8<- labs %>%
     mutate(Grouping="A1C", Value=A1C, A1C=NULL)
 labs8
 
+## replace with function
 join<-full_join(labs2,labs3)
+join <- full_join(labs7,labs8) # GLU, A1C
 join
 ######################
 ## PLOT
 ######################
 
+join$Grouping <- factor(join$Grouping,
+                        levels=c("A1C","GLU"))  # change order
+
+groupGLU<-subset(join,Grouping=="GLU")
 p <- ggplot(data=join, aes(x=Date, y=Value)) +
-    facet_grid(Grouping~ .) +
+    facet_grid(Grouping~., scales = "free_y" ) +
+    geom_point() +
+    geom_vline(
+        aes(xintercept=as.numeric(as.Date("1/1/2014","%m/%d/%Y")), 
+            color="blue", lwd=0.5)) +
+  
     #geom_abline(slope =0, intercept=122, color='red', lty=2) +
     #geom_abline(slope =0, intercept=200, color='red', lty=2) +
     #geom_line(data = labs$Tot_Cholesterol, stat = "identity") + 
@@ -113,8 +117,15 @@ p <- ggplot(data=join, aes(x=Date, y=Value)) +
         title = "Cholesterol ",
         subtitle = "-- subtitle ",
         caption = "Data: Kaiser and my records, 28DEC2016")
-p
-    
+# somehow this works!
+# see: decorating: https://www3.nd.edu/~steve/computing_with_data/13_Facets/facets.html
+q<- p + geom_point(data=groupGLU, color="red") 
+
+# but not this....        
+# scale_y_continuous(data=groupGLU, name = "GLU", limits= c(80,150)) 
+#                                                                   
+
+q
    
        
   
