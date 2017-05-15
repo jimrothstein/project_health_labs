@@ -1,8 +1,8 @@
-----
+
 
 ## lab_results_v3.R
 ## 
-----
+
 ## Changes:   functions, NO facets, use separate plots, save
 ## Tags:    ggsave,
 
@@ -26,17 +26,17 @@
 # clear screen
 ######################
 
-rm(list = ls())
-
+rm(list=ls())
 
 ######################
 # source functions
 ######################
 
-source("functions.R")
+# loaded? then do not repeat
+if (!exists(".First", mode="function")) {
+    source("functions.R")
+}
 
-
-# Main code
 
 ################
 # load packages
@@ -49,7 +49,6 @@ source("functions.R")
 ###############
 
 labs<-experiment()
-
 
 ###################
 ## Tidy
@@ -69,7 +68,15 @@ print(result,n=100)
 
 store(result)
 
+
+#################
+# cleanup
 #####################
+inDevelopment<-TRUE
+
+Last(inDevelopment)
+
+####################
 ## STOP
 #####################
 
