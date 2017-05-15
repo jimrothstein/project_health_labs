@@ -1,6 +1,6 @@
 ----
 
-## lab_results_v2.Rmd
+## lab_results_v3.R
 ## 
 ----
 ## Changes:   functions, NO facets, use separate plots, save
@@ -24,50 +24,51 @@
 #######################
 # preliminaries
 # clear screen
-#
-```{r}
+######################
+
 rm(list = ls())
-```
 
 
-# preliminary:  define functions
+######################
+# source functions
+######################
 
-
-
-
-#
-
-
+source("functions.R")
 
 
 # Main code
 
-```{r}
+################
 # load packages
+################
+
 .First()
 
-# read data
+###############
+# download  data
+###############
+
 labs<-experiment()
 
-```
 
 ###################
 ## Tidy
 ###################
 
-```{r}
 z<-labs %>%
-        gather(key="Test_Names",value="Test_Result",         # create 2 new columns, and
-         -c(Date,Where,Purpose,Exercise.Level,Comments,Allopurinol),na.rm=TRUE)  # except for these columns, insert all the data
+        gather(key="Test_Names",value="Test_Result",         # create 2 new columns
+         -c(Date,Where,Purpose,Exercise.Level,Comments,Allopurinol),  # exclude
+         na.rm=TRUE)  # except for these columns, insert all the data
 
 result<-z %>% select(Date,Test_Names, Test_Result)
 print(result,n=100)
-```
 
+#################
 # save result
-```{r}
+#################
+
 store(result)
-```
+
 #####################
 ## STOP
 #####################
