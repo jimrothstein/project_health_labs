@@ -1,18 +1,20 @@
 
 ##################
-# .First
+# First
 ##################
 
-.First <- function() {
+First <- function() {
     options(width=70)
     options(useFancyQuotes=FALSE)
     if (!require(lubridate)) {
         install.packages("lubridate")
     }
-    if (!require(tidyverse)) {
-        install.packages("tidyverse")
-        require("tidyverse")
-    }
+    require("lubridate")
+    require("tidyverse")
+    # if (!require(tidyverse)) {
+    #     install.packages("tidyverse")
+    #     require("tidyverse")
+    # }
     return(TRUE)
 }
 
@@ -22,7 +24,7 @@
 ##################
 
 experiment <- function(){
-    .Deprecated("write function using URL")
+    .Deprecated("*** write function using URL ***")
     d<-read.csv(file=
         "data/2016_Health Time Series_Sheet.csv",
         header = TRUE,
@@ -53,14 +55,8 @@ store<- function(t=tibble){
 
 Last<-function(l=FALSE){
     
-    # if exists and Indevelopment=TRUE, then remove from memory
-    if (l && exists(".First",mode="function"))
-        {
-        .First<- NULL
-        return(TRUE)
+    if (l){
+        # remove function, so will be need to be resourced
+        rm(First)
     }
-    else 
-        {
-        return (FALSE)
-        }
 }       

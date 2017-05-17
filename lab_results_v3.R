@@ -32,17 +32,19 @@ rm(list=ls())
 # source functions
 ######################
 
-# loaded? then do not repeat
-if (!exists(".First", mode="function")) {
-    source("functions.R")
-}
+source("functions.R")
+            # loaded? then do not repeat
+            # if (!exists(".First", mode="function")) {
+                source("functions.R")
+            #}
+
 
 
 ################
 # load packages
 ################
 
-.First()
+First()
 
 ###############
 # download  data
@@ -56,10 +58,11 @@ labs<-experiment()
 
 z<-labs %>%
         gather(key="Test_Names",value="Test_Result",         # create 2 new columns
-         -c(Date,Where,Purpose,Exercise.Level,Comments,Allopurinol),  # exclude
-         na.rm=TRUE)  # except for these columns, insert all the data
+         -c(Date,Where,Purpose,Exercise.Level,
+            Comments,Allopurinol),  # do not 'gather' these columns
+         na.rm=TRUE)  # 
 
-result<-z %>% select(Date,Test_Names, Test_Result)
+result<-z %>% dplyr::select(Date,Test_Names, Test_Result)
 print(result,n=100)
 
 #################
