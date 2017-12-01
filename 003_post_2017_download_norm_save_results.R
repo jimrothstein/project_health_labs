@@ -34,12 +34,5 @@ result<- result %>% dplyr::select(Date,Test_Name, Test_Result) %>%
 ###########
 # save 2017+ data to local
 ###########
-f<-"./data/2017_labs_norm.csv"
-    write.csv(file= f, x=result, row.names=FALSE)
-    
-    
-    
-z <- result %>% filter(Test_Name== "GLU")
+    write_csv(path = "./data/2017_labs_norm.csv",x = result)
 
-g <- ggplot(z, aes(x=Date, y=Test_Result))
-g + geom_point()

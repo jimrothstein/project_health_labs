@@ -1,9 +1,8 @@
-
 ##################
-# First
+# 001_load_packages
 ##################
 
-First <- function() {
+load_packages <- function() {
     options(width=70)
     options(useFancyQuotes=FALSE)
     if (!require(lubridate)) {
@@ -11,52 +10,69 @@ First <- function() {
     }
     require("lubridate")
     require("tidyverse")
-    # if (!require(tidyverse)) {
-    #     install.packages("tidyverse")
-    #     require("tidyverse")
-    # }
-    return(TRUE)
+    return("all pkgs loaded successfully")
 }
 
 
 ##################
-#   Read Labs
+#   002_Read Labs
 ##################
-
-experiment <- function(){
-    .Deprecated("*** write function using URL ***")
-    d<-read.csv(file=
-        "data/2016_Health Time Series_Sheet.csv",
-        header = TRUE,
-        na.strings = c("NA", "N/A"),  # these entries remain numbers
-        # as.is=TRUE                  # not needed
-        stringsAsFactors = FALSE      # do not convert to factors
-    )
+read_data_from_local_drive <- function(){
+    # .Deprecated("*** write function using URL ***")
+  
+# 28 fields  
+    # cols_only() --  to read specified cols (omitting others)
+    # .... if lazy  use col_types=cols( .default=col_guess())
+    # cols() --  to read every
+    # type is list
+    type <- cols_only(Date = col_date(format="%d%b%Y"),   # parse 09APR2010
+              Where = "c",
+              Purpose = "c",
+              "Exercise Level" = "c",
+              Comments = "c",
+              Ur_pH = "n",
+              Ur_Vol24 = "n",
+              Ur_PCr = "n",
+              Ur_Oxalate24 = "n",
+              Ur_Ca24 = "n",
+              Ur_Uric24 = "n",
+              Ur_Cr = "n",
+              Ur_Cr24 = "n",
+              BUN = "n",
+              eGFR = "n",
+              Serum_Cr = "n",
+              Serum_Ca = "n",
+              Tot_Cholesterol = "n",
+              HDL = "n",
+              LDL = "n",
+              VLDL ="n",
+              Trig = "n",
+              TSH = "n",
+              GLU =  "n",
+              A1C =  "n",
+              PSA = "n",
+              Allopurinol = "n"
+              )
     
-    # some clean up: char to Date
-    d$Date<-dmy(d$Date)
-    labs<-as_tibble(d)
-    return(labs)
+    d<-read_csv(file=
+        "data/2016_Health Time Series_Sheet.csv",
+        col_names = TRUE, # use 1st line
+        col_types = type, # or cols( .default = col_guess() ), 
+        na = c("NA", "N/A")  # these entries remain numbers
+    )
+    return(d)
 }
-
 ##############
-# preliminary:  function to store tibble as .csv
+# 003_save_norm_to_local
 ##############
 
-store<- function(t=tibble){
+
+save_norm_to_local<- function(t=tibble){
     
     # if not tibble, stop!
     if (!is.tibble(t) || is.null(t)) {stop("must supply tibble")}
     
-    f<-"./data/labs_norm.csv"
-    write.csv(file= f, x=t)
+    write_csv(x=t, "./data/pre_2017_labs_norm.csv")
     return (TRUE)
 }
 
-Last<-function(l=FALSE){
-    
-    if (l){
-        # remove function, so will be need to be resourced
-        rm(First)
-    }
-}       

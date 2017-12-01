@@ -1,46 +1,46 @@
-Date,Test_Name,Test_Result,,Comment,Normal
+Date,Test_Name,Test_Result,Code,Comment,Normal
+09May2017,A1C,5.3,,,<=5.6%
+19Oct2017,A1C,5.7,H,,
 01Jan2017,BUN,23,,,7-25 mg/dL
+16Feb2017,BUN,26,H,,7-25 mg/dL
+19Oct2017,BUN,26,H,,
 01Jan2017,Chloride,96,L,,97-109 mmol/L
 01Jan2017,Creatinine,1.26,,,0.6-1.30 mg/dL
+19Oct2017,D,46,,,
 01Jan2017,eGFR,61,,,>=60
-01Jan2017,GLU,80,,,70-200 
-24Jan2017,Ur_Cr,43.3,,,--
-24Jan2017,Ur_Pr/Cr,0.32,H,,<=0.19 
-24Jan2017,Ur_Protein,14,,,<=14 mg/dL
-16Feb2017,BUN,26,H,,7-25 mg/dL
 16Feb2017,eGFR,62,,,
+19Oct2017,GFR,62,,,
+01Jan2017,GLU,80,,,70-200 
 16Feb2017,GLU,101,,,70-200
+19Oct2017,GLU,116,H,,
+21Apr2017,Leukocytes,1+,A,,Negative
+21Apr2017,pH,7,,,5.0-8.0
+09May2017,PSA,1.76,,,<=4.50
+30Jun2017,PTH,80,H,,
+19Oct2017,PTH,97,H,,15-75
 16Feb2017,Serum_Ca,9.9,,,8.4-10.2 mg/dL
 16Feb2017,Serum_Cl,96,L,,97-109 mmol/L
+19Oct2017,Serum_Cl,96,L,,
 16Feb2017,Serum_Cr,1.25,,,0.60-1.30 mg/dL
+19Oct2017,Serum_Cr,1.24,,,
+21Apr2017,UA Hgb,1+,A,,Negative
 16Feb2017,Ur_Alb,5.3,H,,3.4-5.2 gm/dL
 16Feb2017,Ur_Ca24,211,,,100-300 mg/24
+29Sep2017,Ur_Ca24,173,,,<300
 16Feb2017,Ur_Citrate24,536,,,100-1300 mg/24
+19Oct2017,Ur_Citrate24,398,,,
+24Jan2017,Ur_Cr,43.3,,,--
 16Feb2017,Ur_Cr,21.2,,,
+29Sep2017,Ur_Cr,46.5,,,--
 16Feb2017,Ur_Cr24,1.21,,,0.80-2.00 g/24
 16Feb2017,Ur_Na24,114,,,40-220 mmol/24
 16Feb2017,Ur_Ox24,45.6,H,,3.6-38.0 mg/24
+29Sep2017,Ur_Ox24,48,H,,
+24Jan2017,Ur_Pr/Cr,0.32,H,,<=0.19 
+29Sep2017,Ur_Pr/Cr,0.58,H,,<=0.19 
+24Jan2017,Ur_Protein,14,,,<=14 mg/dL
+29Sep2017,Ur_Protein,27,H,,<=14 mg/dL
+19Oct2017,Ur_Protein,1+,A,,
 16Feb2017,Ur_Uric24,302,,,250-750 ng/24
 16Feb2017,Ur_Vol24,5700,,,
-21Apr2017,Leukocytes,1+,A,,Negative
-21Apr2017,pH,7,,,5.0-8.0
-21Apr2017,UA Hgb,1+,A,,Negative
-09May2017,A1C,5.3,,,<=5.6%
-09May2017,PSA,1.76,,,<=4.50
-30Jun2017,PTH,80,H,,
-29Sep2017,Ur_Ca24,173,,,<300
-29Sep2017,Ur_Cr,46.5,,,--
-29Sep2017,Ur_Ox24,48,H,,
-29Sep2017,Ur_Pr/Cr,0.58,H,,<=0.19 
-29Sep2017,Ur_Protein,27,H,,<=14 mg/dL
-19Oct2017,A1C,5.7,H,,
-19Oct2017,BUN,26,H,,
-19Oct2017,D,46,,,
-19Oct2017,GFR,62,,,
-19Oct2017,GLU,116,H,,
-19Oct2017,PTH,97,H,,15-75
-19Oct2017,Serum_Cl,96,L,,
-19Oct2017,Serum_Cr,1.24,,,
-19Oct2017,Ur_Protein,1+,A,,
 19Oct2017,Ur_Vol24,,,,"WRONG:  Report = 4800, wrong."
-19Oct2017,Ur_Citrate24,398,,,
