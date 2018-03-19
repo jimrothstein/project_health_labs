@@ -7,12 +7,12 @@
 rm(list=ls())
 require(tidyverse)
 require(lubridate)   # ymd requires
-require(jimPackage)
+
 #################
 # Retrieve normalized, data f009 - present (local)
 #################
 result <- readr::read_csv("./data/combine_labs_norm.csv")
-what_is_it(result)
+
 glimpse(result)
 #################
 # Begin plots
@@ -29,7 +29,7 @@ g <- ggplot(z, aes(x=Date,y=Test_Result)) +
     scale_x_date(date_labels = "%Y") +
     geom_hline(yintercept = 100, color="red") +
     labs (title = "Fasting Glucose",
-          subtitle = "2008 - 2018") +
+          subtitle = "2009 - 2018") +
 	geom_vline(data = tibble(    # adding layer!, own data
 		x= ymd(c("2012-01-01","2016-05-01"))
 		),
