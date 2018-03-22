@@ -2,4 +2,4 @@ all:
 		@echo Build All
 
 clean:	
-		@echo Clean All
+		@echo Clean All1 
