@@ -1,5 +1,12 @@
 #July 2014 weight
 
+#################
+#	OLD?
+#
+#################
+
+
+
 # for clothes, subtract 0.6 kg (1.3 lbs)
 adj=1.3
 
