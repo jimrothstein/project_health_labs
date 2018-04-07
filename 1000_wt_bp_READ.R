@@ -1,14 +1,13 @@
 #1000_wt_bp_READ.R
 #
 #####################
-#	WTS 
-#		- JUN 2012- MAY 2015, monthly summary, 
-#		- 2008 + JAN 2011 - SEP 2017 (misc sources)
+#	Weight
+#		- SOURCE1 = JUN 2012- MAY 2015, monthly summary, 
+#		- SOURCE2 = JAN 20 - SEP 2017 (misc sources)
+#		- WEIGHT1 = cleaned data from SOURCE
+#		- WEIGHT2 = cleaned data from SOURCE2
 #
-#
-#
-#
-
+#####################
 
 ## ------------------
 ## begin
@@ -17,40 +16,44 @@ library(tidyverse)
 library(readr)
 library(lubridate)
 
+##########
+SOURCE1 <- "./data_wt_bp/2012_2015_Weight_SUMMARY.csv"
+SOURCE2 <- "./data_wt_bp/2012-2015_Weight_Monthly - 2008-2018 (misc sources).csv"
 
-# ToDo(jr, study readr_example() )
-wt <- read_csv("./data_wt_bp/2012_2015_Weight_SUMMARY.csv")
+wt1 <- read_csv(SOURCE1)
 
 # have 1 data pt per MONTH, pretend wt on the 1st of month
 
 fudge <- " 01, "
-wt1 <- 
-	wt %>%
+WEIGHT1 <- 
+	wt1 %>%
 	mutate(Date = 
-		   	mdy(paste0( Month, fudge, as.character(Year)) ) 
+		   	mdy(paste0( Month, fudge, as.character(Year)) ),
+		    wt_lb = `Avg Wt`
 		   ) %>%
-	select(Date, "Avg Wt")
+	select(Date, "wt_lb")
+plot(WEIGHT1)
+##################
+# now WEIGHT2
+##################
 
-
-wt_2008_2018_misc <- read_csv("./data_wt_bp/2012-2015_Weight_Monthly - 2008-2018 (misc sources).csv", na = c(0,"","NA"))
-z <-
-	wt_2008_2018_misc %>%
+wt2 <- read_csv(SOURCE2, na = c(0,"","NA"))
+WEIGHT2 <-
+	wt2 %>%
 	filter(! (is.na(wt_lb) & is.na(wt_kg))) %>%
 	mutate(wt_lb = ifelse(is.na(wt_lb), wt_kg*2.2, wt_lb)) %>%
 	mutate(Date = mdy(Date)) %>%
 	select(Date,wt_lb) 
 
-plot(z)
-
-
-
-
-## plot
-plot(wt1)   # good 
-
+plot(WEIGHT2)
+#####################
+## plot again -ggplot
 ##
+#####################
+# plot WEIGHT1 - ggplot
+#####################
 g <- 
-	wt1 %>% ggplot(aes(Date,y=`Avg Wt`)) + 
+	WEIGHT1 %>% ggplot(aes(Date,y=wt_lb)) + 
 		geom_point() +
 		#geom_col(fill="darkorange", na.rm =  TRUE)  +
         labs (title = paste0("Rowing -- Daily Watt-hour"), 
@@ -59,18 +62,30 @@ g <-
               y = "Watt-hours")  +
 		scale_x_date(date_labels = "%b %Y", date_breaks = "1 year ", 
 					 limits =  mdy(c("1/1/2012","12/31/2015"))) 
-+ ylim(0,200)#+
 g
-## -------------------------
-## import ./data_wt_bp/all_years_...misc.csv
-wt <- read_csv("./data_wt_bp/all_years_wt_bp_misc_entries.csv")
-wt1 <- wt %>%
-	mutate(Date = 
-		   	mdy( Date ),
-		   wt = `wt(kg)`
-	) %>%
-	filter(wt > 0) %>%
-	select(Date,wt  )
-plot(wt1)
-#####################
+######################################
+# PLOT WEIGHT2
+######################################
+h <- 
+	WEIGHT2 %>% ggplot(aes(Date,y=wt_lb)) + 
+		geom_point() +
+		#geom_col(fill="darkorange", na.rm =  TRUE)  +
+        labs (title = paste0("Rowing -- Daily Watt-hour"), 
+              subtitle = "60 = maximum, 40 = typical\n60 = 1 lightbulb for 1 hour",
+              caption = "source: my records",
+              y = "Watt-hours")  +
+		scale_x_date(date_labels = "%b %Y", date_breaks = "1 year ", 
+					 limits =  mdy(c("1/1/2008","12/31/2018"))) 
+h
 
+
+###############################
+#  COMBINE WEIGHT1 & WEIGHT2, SAVE to disk
+###############################
+FINAL_WEIGHT <- rbind(WEIGHT1,WEIGHT2)
+##
+## use data.table
+library(data.table)
+saveRDS(FINAL_WEIGHT, "./tidy_data/FINAL_WEIGHT.rds")
+x <- readRDS("./tidy_data/FINAL_WEIGHT.rds")
+identical(x,FINAL_WEIGHT) # TRUE
