@@ -8,6 +8,12 @@ library(lubridate)
 library(data.table)
 
 FINAL_WEIGHT <- readRDS(file="./tidy_data/FINAL_WEIGHT.rds")
+# Observations: 62
+# Variables: 2
+# $ Date  <date> 2012-06-01, 2012-07-01, 2012-08-01, 2012-09-0...
+# $ wt_lb <dbl> 152.0, 151.0, 147.0, 144.0, 138.0, 140.0, NA, ...
+
+
 ## plot
 plot(FINAL_WEIGHT)   #  
 

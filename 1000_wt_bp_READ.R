@@ -36,14 +36,20 @@ plot(WEIGHT1)
 ##################
 # now WEIGHT2
 ##################
-
+# dates to exclude in misc data
+begin_date=ymd("2012-06-01")
+end_date=ymd("2015-05-31")
 wt2 <- read_csv(SOURCE2, na = c(0,"","NA"))
 WEIGHT2 <-
 	wt2 %>%
 	filter(! (is.na(wt_lb) & is.na(wt_kg))) %>%
 	mutate(wt_lb = ifelse(is.na(wt_lb), wt_kg*2.2, wt_lb)) %>%
 	mutate(Date = mdy(Date)) %>%
-	select(Date,wt_lb) 
+	select(Date,wt_lb) %>%
+	filter(Date < begin_date | Date > end_date | 
+		   	(month(Date) == "12" & year(Date) == "2012") |
+		   	(month(Date) == "1" & year(Date) == "2013"))
+
 
 plot(WEIGHT2)
 #####################
